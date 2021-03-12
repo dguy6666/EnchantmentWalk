@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerBreakEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -28,13 +28,12 @@ public class WalkListen implements Listener {
     }
 
     @EventHandler
-    public void onPlayerWalk(PlayerMoveEvent e){
+    public void onPlayerBreak(PlayerBreakEvent e){
         // Check if game has started
         if (plugin.gamestarted){
             Player p = e.getPlayer();
             Location block = p.getWorld().getBlockAt(p.getLocation()).getLocation();
             // Check if stored location is different from current
-            if (plugin.newloc.get(p.getUniqueId()).getX() != block.getX() || plugin.newloc.get(p.getUniqueId()).getY() != block.getY() || plugin.newloc.get(p.getUniqueId()).getZ() != block.getZ()){
                 // Inventory enchant system
                 ItemStack[] inventory = p.getInventory().getContents();
                 List<Integer> slotswithitems = getSlotsWithItems(p.getInventory());
